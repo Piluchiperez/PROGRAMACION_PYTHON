@@ -27,7 +27,30 @@ def grabar(registro):
 	print(registro[:])
      
 def leer(miId):
-     miCursor.execute("select * from usuarios where miId=Id")
+    miConexion=sqlite3.connect("BaseCRUD.bd")
+    miCursor=miConexion.cursor()    
+    miCursor.execute("select * from usuarios where miId=Id")
+    return miCursor.fetchone()
+
+def modificar(registro):
+    miConexion=sqlite3.connect("BaseCRUD.bd")
+    miCursor=miConexion.cursor()    
+    miCursor.execute('''
+                     update usuarios set nomusuario = registro[1], 
+                     password=registro[2], 
+                     apellidos=registro[3], 
+                     direccion=registro[4], 
+                     comentarios=registro[5] 
+                     from usuarios where Id=registro[0]''')
+    
+def borrar(miId):
+    miConexion=sqlite3.connect("BaseCRUD.bd")
+    miCursor=miConexion.cursor()    
+    miCursor.execute("delete * from usuarios where miId=Id") 
+    
+    
+    
+
      
      
 	
